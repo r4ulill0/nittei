@@ -1,0 +1,21 @@
+// Calendar files grammar definition
+
+WHITESPACE= _{ " "|"\t" } // ignore whitespaces tokens
+time_type= {"d"|"w"|"m"|"y"} // day, week, month, year
+time_unit= @{ASCII_NONZERO_DIGIT+ ~ time_type} // 1w or 23d or 3m or 5y
+year=@{(ASCII_NONZERO_DIGIT~ASCII_DIGIT*)|"*"}
+month=@{(ASCII_NONZERO_DIGIT~ASCII_DIGIT?)|"*"}
+day=@{(ASCII_NONZERO_DIGIT~ASCII_DIGIT?)|"*"}
+date={year ~ "-"? ~ month ~ "-"? ~ day}
+description = @{ASCII+}
+description_block= _{"|" ~ description} // Ignore the separator
+parameter = @{ASCII_ALPHANUMERIC+}
+option_parameter = _{(parameter|"," ~ parameter)*} // Ignore parameter block, just give an array of parameter
+option = {"#" ~ ASCII_ALPHA+ ~ option_parameter}
+entry = {date ~ option* ~ description_block}
+
+calendar = {
+    SOI ~
+    entry* ~
+    EOI
+}
