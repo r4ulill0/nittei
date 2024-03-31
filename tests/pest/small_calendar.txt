@@ -1,0 +1,103 @@
+Small calendar file
+
+========
+
+*-*-* #priority 1| Feed dog
+*-*-*   #priority      1    | Prepare dinner
+*-*-* #priority 4 | Check mail
+*-*-* #REPEAT 1w | Do the laundry
+
+*-5-2 #extend 1w | Bob's birthday
+
+24-3-1 #id 23 #notifyBefore 1w | Prepare wedding
+
+
+========
+
+(calendar
+    (entry
+        (date
+            (year: "*")
+            (month: "*")
+            (day: "*")
+        )
+        (option
+            (parameter: "1")
+        )
+        (description: "Feed dog")
+    )
+    (entry
+        (date
+            (year: "*")
+            (month: "*")
+            (day: "*")
+        )
+        (option
+            (parameter: "1")
+        )
+        (description: "Prepare dinner")
+    )
+    (entry
+        (date
+            (year: "*")
+            (month: "*")
+            (day: "*")
+        )
+        (option
+            (parameter: "4")
+        )
+        (description: "Check mail")
+    )
+    (entry
+        (date
+            (year: "*")
+            (month: "*")
+            (day: "*")
+        )
+        (option
+            (parameter
+                (time_expression
+                    (time_unit: "1")
+                    (time_type: "w")
+                )
+            )
+        )
+        (description: "Do the laundry")
+    )
+    (entry
+        (date
+            (year: "*")
+            (month: "5")
+            (day: "2")
+        )
+        (option
+            (parameter
+                (time_expression
+                    (time_unit: "1")
+                    (time_type: "w")
+                )
+            )
+        )
+        (description: "Bob\'s birthday")
+    )
+    (entry
+        (date
+            (year: "24")
+            (month: "3")
+            (day: "1")
+        )
+        (option
+            (parameter: "23")
+        )
+        (option
+            (parameter
+                (time_expression
+                    (time_unit: "1")
+                    (time_type: "w")
+                )
+            )
+        )
+        (description: "Prepare wedding")
+    )
+    (EOI:"")
+)

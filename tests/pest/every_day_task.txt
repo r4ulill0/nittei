@@ -1,0 +1,22 @@
+every_day_task
+
+=======
+
+*-*-* #priority 1| Feed dog
+
+=======
+
+(calendar
+  (entry
+    (date
+      (year: "*")
+      (month: "*")
+      (day: "*")
+    )
+    (option
+      (parameter: "1")
+    )
+    (description: "Feed dog")
+  )
+  (EOI: "")
+)
