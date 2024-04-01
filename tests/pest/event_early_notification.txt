@@ -1,0 +1,31 @@
+Event with early notification
+
+========
+
+
+24-3-1 #id 23 #notifyBefore 1w | Prepare wedding
+
+========
+
+(calendar
+    (entry
+        (date
+            (year: "24")
+            (month: "3")
+            (day: "1")
+        )
+        (option
+            (parameter: "23")
+        )
+        (option
+            (parameter 
+                (time_expression
+                    (time_unit: "1")
+                    (time_type: "w")
+                )
+            )
+        )
+        (description: "Prepare wedding")
+    )
+    (EOI: "")
+)

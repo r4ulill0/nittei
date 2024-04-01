@@ -4,3 +4,10 @@ version = "0.0.1"
 edition = "2021"
 
 [dependencies]
+pest="2.6"
+pest_derive="2.6"
+
+[dev-dependencies]
+pest-test="0.1.6"
+lazy_static = "1.4.0"
+
