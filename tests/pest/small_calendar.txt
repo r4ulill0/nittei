@@ -2,14 +2,14 @@ Small calendar file
 
 ========
 
-*-*-* #priority 1| Feed dog
-*-*-*   #priority      1    | Prepare dinner
-*-*-* #priority 4 | Check mail
-*-*-* #REPEAT 1w | Do the laundry
+*-*-* #priority(1) Feed dog
+*-*-*   #priority      (1)     Prepare dinner
+*-*-* #priority (4)  Check mail
+*-*-* #REPEAT ( 1w )  Do the laundry
 
-*-5-2 #extend 1w | Bob's birthday
+*-5-2 #extend (  1w)  Bob's birthday
 
-24-3-1 #id 23 #notifyBefore 1w | Prepare wedding
+24-3-1 #id (23) #notifyBefore( 1w)  Prepare wedding
 
 
 ========

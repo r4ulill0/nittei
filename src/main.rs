@@ -19,6 +19,7 @@ mod tests {
     use lazy_static::lazy_static;
     use pest_test::{PestTester, TestError};
 
+
     lazy_static! {
         static ref COLORIZE: bool = {
                     option_env!("CARGO_TERM_COLOR").unwrap_or("always") != "never"
@@ -29,30 +30,25 @@ mod tests {
         //PestTester::from_defaults(Rule::calendar, HashSet::new());
     }
 
-    #[test]
-    fn test_every_day_task() -> Result<(), TestError<Rule>> {
-        let res = (*TESTER).evaluate_strict("every_day_task");
-        if let Err(pest_test::TestError::Diff { ref diff }) = res {
+    macro_rules! pest_tests {
+        ($($name: ident), *) => {
+            $(
+                #[test]
+                fn $name() -> Result<(), TestError<Rule>> {
+                    let res = (*TESTER).evaluate_strict(stringify!($name));
+                    if let Err(pest_test::TestError::Diff {ref diff}) = res {
                         diff.print_test_result(*COLORIZE).unwrap();
                     }
-        res
+                    res
+                }
+
+            )*
+        }
     }
 
-    #[test]
-    fn event_early_notification() -> Result<(), TestError<Rule>> {
-        let res = (*TESTER).evaluate_strict("event_early_notification");
-        if let Err(pest_test::TestError::Diff { ref diff }) = res {
-                        diff.print_test_result(*COLORIZE).unwrap();
-                    }
-        res
-    }
-
-    #[test]
-    fn small_calendar() -> Result<(), TestError<Rule>> {
-        let res = (*TESTER).evaluate_strict("small_calendar");
-        if let Err(pest_test::TestError::Diff { ref diff }) = res {
-                        diff.print_test_result(*COLORIZE).unwrap();
-                    }
-        res
+    pest_tests! {
+        every_day_task,
+        event_early_notification,
+        small_calendar
     }
 }

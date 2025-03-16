@@ -2,7 +2,7 @@ every_day_task
 
 =======
 
-*-*-* #priority 1| Feed dog
+*-*-* #priority (1) Feed dog
 
 =======
 

@@ -3,7 +3,7 @@ Event with early notification
 ========
 
 
-24-3-1 #id 23 #notifyBefore 1w | Prepare wedding
+24-3-1 #id (23) #notifyBefore (1w) Prepare wedding
 
 ========
 

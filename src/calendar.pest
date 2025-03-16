@@ -15,12 +15,12 @@ entry = {date ~ option* ~ description_block}
         day=@{(ASCII_NONZERO_DIGIT~ASCII_DIGIT?)|"*"}
 
     option = {"#" ~ ASCII_ALPHA+ ~ option_parameter}
-        option_parameter = _{parameter ~ ("," ~ parameter)*} // Ignore parameter block, just give an array of parameter
+        option_parameter = _{"(" ~ parameter ~ ("," ~ parameter)* ~ ")"} // Ignore parameter block, just give an array of parameter
             parameter = ${time_expression | ASCII_ALPHANUMERIC+}
                 time_expression={time_unit ~ time_type} // 1w or 23d or 3m or 5y
                     time_type= @{"d"|"w"|"m"|"y"} // day, week, month, year
                     time_unit= @{ASCII_NONZERO_DIGIT+}
 
-    description_block= _{"|" ~ description} // Ignore the separator
+    description_block= _{description} // Ignore the separator
         description = @{(!NEWLINE ~ ASCII)+}
 
