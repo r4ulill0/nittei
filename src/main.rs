@@ -1,10 +1,17 @@
 use pest::Parser;
 use pest_derive::Parser;
+use mlua::Lua;
+use crate::config::NitteiConfig;
+
+mod config;
+
 
 #[derive(Parser)]
 #[grammar="calendar.pest"]
 pub struct CalendarParser;
 fn main() {
+    let lua = Lua::new();
+    let config = NitteiConfig::load_config(&lua);
     let example_entry = "*-7-2 #extend 1w | Bob's birthday";
     let parse_tree = CalendarParser::parse(Rule::calendar, example_entry);
     println!("{:#?}", parse_tree);
@@ -15,7 +22,7 @@ fn main() {
 mod tests {
     use std::collections::HashSet;
 
-    use crate::{CalendarParser, Rule};
+    use crate::{CalendarParser, NitteiConfig, Rule};
     use lazy_static::lazy_static;
     use pest_test::{PestTester, TestError};
 
