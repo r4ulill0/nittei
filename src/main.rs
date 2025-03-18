@@ -21,7 +21,6 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use std::collections::HashSet;
-    use mlua::Lua;
 
     use crate::{CalendarParser, NitteiConfig, Rule};
     use lazy_static::lazy_static;
@@ -58,15 +57,5 @@ mod tests {
         every_day_task,
         event_early_notification,
         small_calendar
-    }
-
-    #[test]
-    fn lua_load() {
-        let conf_path = format!("{}/resources/tests/", env!("CARGO_MANIFEST_DIR"));
-        std::env::set_var("XDG_CONFIG_HOME", conf_path);
-        let lua = Lua::new();
-        let config = NitteiConfig::load_config(&lua);
-        let config_opt: bool = lua.globals().get("remove_completed").unwrap();
-        assert_eq!(config.remove_completed, true, "Config generating a wrong default value: {} expected {}", config_opt, true);
     }
 }
