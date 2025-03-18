@@ -6,6 +6,8 @@ edition = "2021"
 [dependencies]
 pest="2.6"
 pest_derive="2.6"
+xdg="2.5"
+mlua={version = "0.9.6", features=["luajit"]}
 
 [dev-dependencies]
 pest-test="0.1.6"
