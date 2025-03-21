@@ -1,6 +1,8 @@
+use std::fmt::{Display, Formatter, Result};
 use xdg::BaseDirectories;
-use mlua::{Lua, FromLua, IntoLua, };
-use mlua::prelude::{LuaResult, LuaValue};
+use mlua::{Lua, FromLua, IntoLua, Table};
+use mlua::prelude::{LuaResult, LuaValue, LuaError};
+use ConfigError::*;
 
 pub struct NitteiConfig {
     pub remove_completed: bool,
@@ -8,12 +10,18 @@ pub struct NitteiConfig {
 
 impl<'lua> FromLua<'lua> for NitteiConfig {
 
-    fn from_lua(value: LuaValue<'lua>, _lua: &'lua Lua) -> mlua::Result<Self> {
-        print!("value es tabla? {}", value.type_name());
-        let x: &mlua::Table = value.as_table().unwrap();
-        let b: bool = x.get("remove_completed").unwrap();
+    fn from_lua(value: LuaValue<'lua>, _lua: &'lua Lua) -> LuaResult<Self> {
+        let t: &Table = match value.as_table() {
+            Some(t) =>  t,
+            None =>  return Err(LuaError::FromLuaConversionError{
+                from: "Table",
+                to: "NitteiConfig",
+                message: Some(format!("could not read nittei config as table, it was a {}", value.type_name()))
+                })
+        };
+
         Ok(NitteiConfig {
-            remove_completed:b,
+            remove_completed:t.get("remove_completed")?,
         }  )          
     }
 }
@@ -59,6 +67,25 @@ impl NitteiConfig {
             .unwrap();
 
         return config
+    }
+}
+
+#[derive(Debug)]
+pub enum ConfigError {
+    PathError(String),
+    LuaReadError(String),
+    LuaWriteError(String),
+}
+
+impl std::error::Error for ConfigError {}
+
+impl Display for ConfigError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        match self {
+            PathError(e) => write!(f, "path error: {}", e),
+            LuaReadError(e) => write!(f, "error reading lua: {}", e),
+            LuaWriteError(e) => write!(f, "error converting into lua: {}", e),
+        }
     }
 }
 
