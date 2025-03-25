@@ -1,10 +1,18 @@
 use pest::Parser;
 use pest_derive::Parser;
+use mlua::Lua;
+use crate::config::NitteiConfig;
+
+mod config;
+
 
 #[derive(Parser)]
 #[grammar="calendar.pest"]
 pub struct CalendarParser;
 fn main() {
+    let lua = Lua::new();
+    NitteiConfig{..Default::default()};
+    let config: NitteiConfig = NitteiConfig::load_config(&lua).unwrap_or_else(|_e| NitteiConfig{..Default::default()});
     let example_entry = "*-7-2 #extend 1w | Bob's birthday";
     let parse_tree = CalendarParser::parse(Rule::calendar, example_entry);
     println!("{:#?}", parse_tree);
